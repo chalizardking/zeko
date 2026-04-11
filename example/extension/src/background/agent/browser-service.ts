@@ -44,26 +44,28 @@ export class SimpleBrowserService implements BrowserService {
     chatId: string,
     tabIds: string[]
   ): Promise<PageContent[]> {
-    const contents: PageContent[] = [];
-    for (const tabId of tabIds) {
-      const tab = await chrome.tabs.get(Number(tabId));
-      const frameResults = await chrome.scripting.executeScript({
-        target: { tabId: Number(tabId) },
-        func: extractPageContent,
-        args: [],
-      });
-      let tabHtmls = frameResults[0].result as string;
-      if (!tabHtmls) {
-        tabHtmls = await this.extractPdfContent(tab.url);
-      }
-      contents.push({
-        tabId: tabId,
-        url: tab.url,
-        title: tab.title,
-        content: tabHtmls,
-      });
-    }
-    return Promise.resolve(contents);
+    return Promise.all(
+      tabIds.map(async (tabId) => {
+        const [tab, frameResults] = await Promise.all([
+          chrome.tabs.get(Number(tabId)),
+          chrome.scripting.executeScript({
+            target: { tabId: Number(tabId) },
+            func: extractPageContent,
+            args: [],
+          }),
+        ]);
+        let tabHtmls = frameResults[0].result as string;
+        if (!tabHtmls) {
+          tabHtmls = await this.extractPdfContent(tab.url || "");
+        }
+        return {
+          tabId: tabId,
+          url: tab.url || "",
+          title: tab.title || "",
+          content: tabHtmls,
+        };
+      })
+    );
   }
 
   private async extractPdfContent(pdfUrl: string): Promise<string> {

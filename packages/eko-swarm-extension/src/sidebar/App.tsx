@@ -36,7 +36,7 @@ export const App: React.FC = () => {
     if (lastMessage) {
       if (lastMessage.type === 'SWARM_STATE_UPDATE') {
         setSwarmState(lastMessage.state);
-      } else if (lastMessage.type === 'SWARM_ACTIVITY') {
+      } else if (lastMessage.type === 'SWARM_ACTIVITY' && lastMessage.log) {
         setLogs(prev => [...prev, lastMessage.log]);
       }
     }

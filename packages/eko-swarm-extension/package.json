@@ -1,0 +1,39 @@
+{
+  "name": "@eko-ai/eko-swarm-extension",
+  "version": "0.0.1",
+  "description": "Multi-agent swarm browser extension for Eko",
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^1.0.0",
+    "@ai-sdk/openai": "^1.0.0",
+    "@eko-ai/eko": "workspace:*",
+    "buffer": "^6.0.3",
+    "events": "^3.3.0",
+    "process": "^0.11.10",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-replace": "^5.0.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/chrome": "0.0.158",
+    "@types/node": "^22.19.7",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "rollup": "^4.0.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-polyfill-node": "^0.13.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

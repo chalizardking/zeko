@@ -73,7 +73,6 @@ export class AgentHost {
         return { type: 'SWARM_STATE', state: this.swarm.getState() };
 
       default:
-        // @ts-ignore
         return { error: `Unknown message type: ${message.type}` };
     }
   }
